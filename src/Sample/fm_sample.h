@@ -30,7 +30,7 @@ void fm_sample::parseLine(const string& line, vector<string> vec){
     this->x.clear();
     vec.clear();
 
-    util::str_util::split(line, vec);
+    util::str_util::split(line, spliter, vec);
     int label = atoi(vec[0].c_str());
     this->y = label > 0 ? 1 : -1;
     for (int index = 1; index < vec.size(); ++index){
