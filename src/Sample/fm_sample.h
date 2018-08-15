@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "../Utils/str_util.h"
 
 using namespace std;
 
@@ -16,8 +17,26 @@ public:
     int y;
     vector<pair<string, double> > x;
     fm_sample(const string& line);
+    void parseLine(const string& line, vector<string> vec);
+    void reset();
 };
 
+void fm_sample::reset() {
+    this->y = 0;
+    this->x.clear();
+}
+
+void fm_sample::parseLine(const string& line, vector<string> vec){
+    this->x.clear();
+    vec.clear();
+
+    util::str_util::split(line, vec);
+    int label = atoi(vec[0].c_str());
+    this->y = label > 0 ? 1 : -1;
+    for (int index = 1; index < vec.size(); ++index){
+        this->x.push_back(make_pair(vec[index], 1));
+    }
+}
 
 fm_sample::fm_sample(const string& line) 
 {
